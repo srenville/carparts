@@ -5,6 +5,8 @@
  */
 package carparts;
 
+import java.rmi.Naming;
+
 /**
  *
  * @author Toozigba
@@ -73,6 +75,11 @@ public class PartsClient extends javax.swing.JFrame {
         ItemIdName.setText("jTextField2");
 
         SubmitUpdate.setText("Submit");
+        SubmitUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubmitUpdateActionPerformed(evt);
+            }
+        });
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("New Item Price");
@@ -274,6 +281,13 @@ public class PartsClient extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ConnectToServerActionPerformed
 
+    private void SubmitUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitUpdateActionPerformed
+       
+        int x=(int) Double.valueOf(ItemIdName.getText().trim()).doubleValue();
+        int y= (int) Double.valueOf(ItemPrice.getText().trim()).doubleValue();
+        this.add(x,y);        // TODO add your handling code here:
+    }//GEN-LAST:event_SubmitUpdateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -312,13 +326,30 @@ public class PartsClient extends javax.swing.JFrame {
         
         
     }
+    
+    public void add(double num1, double num2){
+        try {
+  	  String addServerURL = "rmi://" + "127.0.0.1" + "/CarPartsServer";
+  	  CarPartsInterface CarPartsInterface = (CarPartsInterface)Naming.lookup(addServerURL);
+  	  System.out.println("The first number is " + num1);
+  	  double d1 = Double.valueOf(num1).doubleValue();
+  	  System.out.println("The second number is " + num2);
+  	  double d2 = Double.valueOf(num2).doubleValue();
+  	  System.out.println("The sum is: " + CarPartsInterface.add(d1,d2));
+  	  
+  	}
+  	catch (Exception e)  {
+  	System.out.println("Exception: " + e);
+  	}	 
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ActionSelect;
     private javax.swing.JToggleButton ConnectToServer;
     private javax.swing.JPanel DisplayWindow;
-    private javax.swing.JTextField ItemIdName;
-    private javax.swing.JTextField ItemPrice;
+    private static javax.swing.JTextField ItemIdName;
+    private static javax.swing.JTextField ItemPrice;
     private javax.swing.JPanel NotificationArea;
     private javax.swing.JButton SubmitUpdate;
     private javax.swing.JLabel jLabel1;
