@@ -13,8 +13,6 @@ import java.util.List;
  *
  * @author Toozigba
  */
-public interface CarPartsInterface extends Remote {
-  double add (double d1, double d2) throws RemoteException;
- 
+public interface viewAllPartsPricesInterface extends Remote{
+    String viewAllPartsPrices()throws RemoteException; 
 }
-

@@ -6,6 +6,7 @@
 package carparts;
 
 import java.rmi.Naming;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -35,7 +36,7 @@ public class PartsClient extends javax.swing.JFrame {
         ActionSelect = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        ItemIdName = new javax.swing.JTextField();
+        ItemName = new javax.swing.JTextField();
         SubmitUpdate = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         ItemPrice = new javax.swing.JTextField();
@@ -44,7 +45,8 @@ public class PartsClient extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         ConnectToServer = new javax.swing.JToggleButton();
         DisplayWindow = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        display = new javax.swing.JTextArea();
         NotificationArea = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,9 +72,9 @@ public class PartsClient extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(96, 125, 139));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Enter Item Name or ID");
+        jLabel2.setText("Enter Item Name");
 
-        ItemIdName.setText("jTextField2");
+        ItemName.setText("jTextField2");
 
         SubmitUpdate.setText("Submit");
         SubmitUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +110,7 @@ public class PartsClient extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ItemIdName, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                            .addComponent(ItemName, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                             .addComponent(ItemPrice))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator2)
@@ -123,7 +125,7 @@ public class PartsClient extends javax.swing.JFrame {
                 .addGap(60, 60, 60)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ItemIdName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ItemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
@@ -194,30 +196,21 @@ public class PartsClient extends javax.swing.JFrame {
         DisplayWindow.setBackground(new java.awt.Color(255, 255, 255));
         DisplayWindow.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextField1.setEditable(false);
-        jTextField1.setText("No output available");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+        display.setColumns(20);
+        display.setRows(5);
+        jScrollPane1.setViewportView(display);
 
         javax.swing.GroupLayout DisplayWindowLayout = new javax.swing.GroupLayout(DisplayWindow);
         DisplayWindow.setLayout(DisplayWindowLayout);
         DisplayWindowLayout.setHorizontalGroup(
             DisplayWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DisplayWindowLayout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
         );
         DisplayWindowLayout.setVerticalGroup(
             DisplayWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DisplayWindowLayout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(182, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DisplayWindowLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         NotificationArea.setBackground(new java.awt.Color(221, 240, 194));
@@ -270,12 +263,17 @@ public class PartsClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ActionSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActionSelectActionPerformed
+    String select=ActionSelect.getSelectedItem().toString();
+    if(select.equals("View All Prices")){
+        display.setText("");
+        display.setText(viewAllPartsPrices()); 
+    }
+     
+    
+   
+    System.out.print(ActionSelect.getSelectedItem().toString());
         // TODO add your handling code here:
     }//GEN-LAST:event_ActionSelectActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void ConnectToServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectToServerActionPerformed
         // TODO add your handling code here:
@@ -283,9 +281,11 @@ public class PartsClient extends javax.swing.JFrame {
 
     private void SubmitUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitUpdateActionPerformed
        
-        int x=(int) Double.valueOf(ItemIdName.getText().trim()).doubleValue();
-        int y= (int) Double.valueOf(ItemPrice.getText().trim()).doubleValue();
-        this.add(x,y);        // TODO add your handling code here:
+//        int x=(int) Double.valueOf(ItemName.getText().trim()).doubleValue();
+//        int y= (int) Double.valueOf(ItemPrice.getText().trim()).doubleValue();
+//        this.add(x,y);        // TODO add your handling code here:
+
+viewAllPartsPrices();
     }//GEN-LAST:event_SubmitUpdateActionPerformed
 
     /**
@@ -336,6 +336,10 @@ public class PartsClient extends javax.swing.JFrame {
   	  System.out.println("The second number is " + num2);
   	  double d2 = Double.valueOf(num2).doubleValue();
   	  System.out.println("The sum is: " + CarPartsInterface.add(d1,d2));
+          
+          viewAllPartsPricesInterface viewAllPartsPricesInterface = (viewAllPartsPricesInterface) Naming.lookup(addServerURL);
+  	  
+  	  System.out.println(viewAllPartsPricesInterface.viewAllPartsPrices());
   	  
   	}
   	catch (Exception e)  {
@@ -343,15 +347,32 @@ public class PartsClient extends javax.swing.JFrame {
   	}	 
 
     }
+    
+    public String viewAllPartsPrices(){
+        String result="";
+        
+        try {
+  	  String addServerURL = "rmi://" + "127.0.0.1" + "/CarPartsServer";
+  	  viewAllPartsPricesInterface viewAllPartsPricesInterface = (viewAllPartsPricesInterface) Naming.lookup(addServerURL);
+  	  
+  	   result =viewAllPartsPricesInterface.viewAllPartsPrices();
+  	  
+  	}
+  	catch (Exception e)  {
+  	System.out.println("Exception: " + e);
+  	}	 
+      return result;  
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ActionSelect;
     private javax.swing.JToggleButton ConnectToServer;
     private javax.swing.JPanel DisplayWindow;
-    private static javax.swing.JTextField ItemIdName;
+    private static javax.swing.JTextField ItemName;
     private static javax.swing.JTextField ItemPrice;
     private javax.swing.JPanel NotificationArea;
     private javax.swing.JButton SubmitUpdate;
+    private javax.swing.JTextArea display;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -359,8 +380,8 @@ public class PartsClient extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
