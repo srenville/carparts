@@ -7,13 +7,11 @@ package carparts;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
 
 /**
  *
  * @author Toozigba
  */
-public interface viewAllPartsPricesInterface extends Remote{
-    String viewAllPartsPrices()throws RemoteException;
-    
+public interface getPriceInterface extends Remote{
+     String getPrice(String ItemName)throws RemoteException;
 }

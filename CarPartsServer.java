@@ -63,9 +63,11 @@ public class CarPartsServer {
           readFile("input.dat");
   	 // CarPartsImpl CarPartsImpl = new CarPartsImpl();
           viewAllPartsPrices viewAllPartsPrices = new viewAllPartsPrices();
+          getPriceImpl getPriceImpl=new getPriceImpl();
           java.rmi.registry.LocateRegistry.createRegistry(1099);
   	 // Naming.rebind("CarPartsServer", CarPartsImpl);
           Naming.rebind("CarPartsServer", viewAllPartsPrices);
+          //Naming.rebind("CarPartsServer", getPriceImpl);
   	}
   	catch (MalformedURLException | RemoteException e)  {
   	System.out.println("Exception: " + e);

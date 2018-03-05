@@ -5,6 +5,7 @@
  */
 package carparts;
 
+import static java.lang.Integer.parseInt;
 import java.rmi.Naming;
 import javax.swing.JComboBox;
 
@@ -20,7 +21,7 @@ public class PartsClient extends javax.swing.JFrame {
     public PartsClient() {
         initComponents();
     }
-
+    static int flag =0;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,11 +35,11 @@ public class PartsClient extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         ActionSelect = new javax.swing.JComboBox<>();
-        jPanel5 = new javax.swing.JPanel();
+        formBg = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         ItemName = new javax.swing.JTextField();
         SubmitUpdate = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        priceLabel = new javax.swing.JLabel();
         ItemPrice = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -69,7 +70,7 @@ public class PartsClient extends javax.swing.JFrame {
             }
         });
 
-        jPanel5.setBackground(new java.awt.Color(96, 125, 139));
+        formBg.setBackground(new java.awt.Color(96, 125, 139));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Enter Item Name");
@@ -83,8 +84,8 @@ public class PartsClient extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("New Item Price");
+        priceLabel.setForeground(new java.awt.Color(255, 255, 255));
+        priceLabel.setText("New Item Price");
 
         ItemPrice.setText("jTextField3");
 
@@ -93,44 +94,44 @@ public class PartsClient extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carparts/Images/icons8-steampunk-48.png"))); // NOI18N
         jLabel4.setText("Update/Enquiry Form");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout formBgLayout = new javax.swing.GroupLayout(formBg);
+        formBg.setLayout(formBgLayout);
+        formBgLayout.setHorizontalGroup(
+            formBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formBgLayout.createSequentialGroup()
                 .addGap(0, 20, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(formBgLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(formBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(SubmitUpdate)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(formBgLayout.createSequentialGroup()
+                        .addGroup(formBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(priceLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(formBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ItemName, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                             .addComponent(ItemPrice))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator2)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        formBgLayout.setVerticalGroup(
+            formBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formBgLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(formBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ItemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(formBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(formBgLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(priceLabel))
+                    .addGroup(formBgLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(ItemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(31, 31, 31)
@@ -150,7 +151,7 @@ public class PartsClient extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1)
                             .addComponent(ActionSelect, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(formBg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -163,7 +164,7 @@ public class PartsClient extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ActionSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(formBg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -265,8 +266,32 @@ public class PartsClient extends javax.swing.JFrame {
     private void ActionSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActionSelectActionPerformed
     String select=ActionSelect.getSelectedItem().toString();
     if(select.equals("View All Prices")){
+        PartsClient.formBg.setVisible(false);
         display.setText("");
         display.setText(viewAllPartsPrices()); 
+    }
+    if(select.equals("Get a Price")){
+       display.setText("");
+       PartsClient.formBg.setVisible(true);
+       priceLabel.setVisible(false);
+       ItemPrice.setVisible(false);
+       flag=1;
+       
+    }
+    
+    if(select.equals("Change Price")){
+        display.setText("");
+       PartsClient.formBg.setVisible(true);
+       priceLabel.setVisible(true);
+       ItemPrice.setVisible(true); 
+       flag=2;
+    }
+    
+    if(select.equals("Delete Part")){
+        display.setText("");
+       PartsClient.formBg.setVisible(true);
+       priceLabel.setVisible(false);
+       ItemPrice.setVisible(false); 
     }
      
     
@@ -284,8 +309,17 @@ public class PartsClient extends javax.swing.JFrame {
 //        int x=(int) Double.valueOf(ItemName.getText().trim()).doubleValue();
 //        int y= (int) Double.valueOf(ItemPrice.getText().trim()).doubleValue();
 //        this.add(x,y);        // TODO add your handling code here:
-
-viewAllPartsPrices();
+    if(flag==1){
+       
+        display.setText(getPrice(ItemName.getText().trim()));
+    }
+    
+    if(flag==2){
+       
+        display.setText(changePrice(ItemName.getText().trim(),Integer.valueOf(ItemPrice.getText().trim())));
+    }
+    
+   // viewAllPartsPrices();
     }//GEN-LAST:event_SubmitUpdateActionPerformed
 
     /**
@@ -319,6 +353,7 @@ viewAllPartsPrices();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PartsClient().setVisible(true);
+              PartsClient.formBg.setVisible(false);
             }
         });
         
@@ -363,6 +398,38 @@ viewAllPartsPrices();
   	}	 
       return result;  
     }
+    
+     public String getPrice(String ItemName){
+        String result="";
+        
+        try {
+  	  String addServerURL = "rmi://" + "127.0.0.1" + "/CarPartsServer";
+  	  getPriceInterface getPriceInterface = (getPriceInterface) Naming.lookup(addServerURL);
+  	  
+  	   result =getPriceInterface.getPrice(ItemName);
+  	  
+  	}
+  	catch (Exception e)  {
+  	System.out.println("Exception: " + e);
+  	}	 
+      return result;  
+    }
+     
+     public String changePrice(String ItemName, int NewPrice){
+        String result="";
+        
+        try {
+  	  String addServerURL = "rmi://" + "127.0.0.1" + "/CarPartsServer";
+  	  changePrice changePrice = (changePrice) Naming.lookup(addServerURL);
+  	  
+  	   result =changePrice.changePrice(ItemName, NewPrice);
+  	  
+  	}
+  	catch (Exception e)  {
+  	System.out.println("Exception: " + e);
+  	}	 
+      return result;  
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ActionSelect;
@@ -373,15 +440,15 @@ viewAllPartsPrices();
     private javax.swing.JPanel NotificationArea;
     private javax.swing.JButton SubmitUpdate;
     private javax.swing.JTextArea display;
+    private static javax.swing.JPanel formBg;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel priceLabel;
     // End of variables declaration//GEN-END:variables
 }
