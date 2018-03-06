@@ -45,10 +45,15 @@ public class PartsClient extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         ConnectToServer = new javax.swing.JToggleButton();
+        Mail = new javax.swing.JButton();
+        generateReport = new javax.swing.JButton();
         DisplayWindow = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         display = new javax.swing.JTextArea();
-        NotificationArea = new javax.swing.JPanel();
+        MailArea = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        emailAddress = new javax.swing.JTextField();
+        sendMail = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,7 +80,7 @@ public class PartsClient extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Enter Item Name");
 
-        ItemName.setText("jTextField2");
+        ItemName.setText("Enter Name");
 
         SubmitUpdate.setText("Submit");
         SubmitUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -87,12 +92,12 @@ public class PartsClient extends javax.swing.JFrame {
         priceLabel.setForeground(new java.awt.Color(255, 255, 255));
         priceLabel.setText("New Item Price");
 
-        ItemPrice.setText("jTextField3");
+        ItemPrice.setText("Enter New Price");
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carparts/Images/icons8-steampunk-48.png"))); // NOI18N
-        jLabel4.setText("Update/Enquiry Form");
+        jLabel4.setText("Request Form");
 
         javax.swing.GroupLayout formBgLayout = new javax.swing.GroupLayout(formBg);
         formBg.setLayout(formBgLayout);
@@ -163,7 +168,7 @@ public class PartsClient extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ActionSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(formBg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -179,19 +184,38 @@ public class PartsClient extends javax.swing.JFrame {
             }
         });
 
+        Mail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carparts/Images/icons8-send-48.png"))); // NOI18N
+        Mail.setBorder(null);
+        Mail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MailActionPerformed(evt);
+            }
+        });
+
+        generateReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carparts/Images/icons8-accounting-48.png"))); // NOI18N
+        generateReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateReportActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Mail, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(generateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addComponent(ConnectToServer))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(ConnectToServer, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 4, Short.MAX_VALUE))
+            .addComponent(generateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(ConnectToServer, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Mail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         DisplayWindow.setBackground(new java.awt.Color(255, 255, 255));
@@ -205,27 +229,59 @@ public class PartsClient extends javax.swing.JFrame {
         DisplayWindow.setLayout(DisplayWindowLayout);
         DisplayWindowLayout.setHorizontalGroup(
             DisplayWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+            .addGroup(DisplayWindowLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                .addContainerGap())
         );
         DisplayWindowLayout.setVerticalGroup(
             DisplayWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DisplayWindowLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+            .addGroup(DisplayWindowLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        NotificationArea.setBackground(new java.awt.Color(221, 240, 194));
-        NotificationArea.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        MailArea.setBackground(new java.awt.Color(221, 240, 194));
+        MailArea.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        javax.swing.GroupLayout NotificationAreaLayout = new javax.swing.GroupLayout(NotificationArea);
-        NotificationArea.setLayout(NotificationAreaLayout);
-        NotificationAreaLayout.setHorizontalGroup(
-            NotificationAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Email Address");
+
+        emailAddress.setText("Enter Email Address");
+
+        sendMail.setText("Submit");
+        sendMail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendMailActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout MailAreaLayout = new javax.swing.GroupLayout(MailArea);
+        MailArea.setLayout(MailAreaLayout);
+        MailAreaLayout.setHorizontalGroup(
+            MailAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MailAreaLayout.createSequentialGroup()
+                .addGroup(MailAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MailAreaLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69)
+                        .addComponent(emailAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MailAreaLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(sendMail)))
+                .addContainerGap())
         );
-        NotificationAreaLayout.setVerticalGroup(
-            NotificationAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        MailAreaLayout.setVerticalGroup(
+            MailAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MailAreaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(MailAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(sendMail))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -241,7 +297,7 @@ public class PartsClient extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(NotificationArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(MailArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(DisplayWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -254,10 +310,9 @@ public class PartsClient extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(DisplayWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(NotificationArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MailArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -266,11 +321,13 @@ public class PartsClient extends javax.swing.JFrame {
     private void ActionSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActionSelectActionPerformed
     String select=ActionSelect.getSelectedItem().toString();
     if(select.equals("View All Prices")){
+        PartsClient.MailArea.setVisible(false);
         PartsClient.formBg.setVisible(false);
         display.setText("");
         display.setText(viewAllPartsPrices()); 
     }
     if(select.equals("Get a Price")){
+        PartsClient.MailArea.setVisible(false);
        display.setText("");
        PartsClient.formBg.setVisible(true);
        priceLabel.setVisible(false);
@@ -280,6 +337,7 @@ public class PartsClient extends javax.swing.JFrame {
     }
     
     if(select.equals("Change Price")){
+        PartsClient.MailArea.setVisible(false);
         display.setText("");
        PartsClient.formBg.setVisible(true);
        priceLabel.setVisible(true);
@@ -288,6 +346,7 @@ public class PartsClient extends javax.swing.JFrame {
     }
     
     if(select.equals("Delete Part")){
+        PartsClient.MailArea.setVisible(false);
         display.setText("");
        PartsClient.formBg.setVisible(true);
        priceLabel.setVisible(false);
@@ -296,6 +355,7 @@ public class PartsClient extends javax.swing.JFrame {
     }
     
      if(select.equals("Generate Profit Report")){
+         PartsClient.MailArea.setVisible(false);
         PartsClient.formBg.setVisible(false);
         display.setText("");
         display.setText(generateReport()); 
@@ -317,6 +377,8 @@ public class PartsClient extends javax.swing.JFrame {
 //        int x=(int) Double.valueOf(ItemName.getText().trim()).doubleValue();
 //        int y= (int) Double.valueOf(ItemPrice.getText().trim()).doubleValue();
 //        this.add(x,y);        // TODO add your handling code here:
+PartsClient.MailArea.setVisible(false);
+    
     if(flag==1){
        
         display.setText(getPrice(ItemName.getText().trim()));
@@ -333,6 +395,25 @@ public class PartsClient extends javax.swing.JFrame {
     
    // viewAllPartsPrices();
     }//GEN-LAST:event_SubmitUpdateActionPerformed
+
+    private void MailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MailActionPerformed
+        // TODO add your handling code here:
+        PartsClient.MailArea.setVisible(true);
+    }//GEN-LAST:event_MailActionPerformed
+
+    private void generateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateReportActionPerformed
+        PartsClient.MailArea.setVisible(false);
+        display.setText("");
+        display.setText(generateReport());
+        // TODO add your handling code here:
+    }//GEN-LAST:event_generateReportActionPerformed
+
+    private void sendMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMailActionPerformed
+        // TODO add your handling code here:
+        
+        display.setText("");
+        display.setText(sendMail(emailAddress.getText().trim())); 
+    }//GEN-LAST:event_sendMailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -366,6 +447,7 @@ public class PartsClient extends javax.swing.JFrame {
             public void run() {
                 new PartsClient().setVisible(true);
               PartsClient.formBg.setVisible(false);
+              PartsClient.MailArea.setVisible(false);
             }
         });
         
@@ -474,6 +556,23 @@ public class PartsClient extends javax.swing.JFrame {
   	}	 
       return result;  
     }
+        
+        
+         public String sendMail(String EmailAddress){
+        String result="";
+        
+        try {
+  	  String addServerURL = "rmi://" + "127.0.0.1" + "/CarPartsServer";
+  	  sendMail sendMail = (sendMail) Naming.lookup(addServerURL);
+  	  
+  	   result =sendMail.sendMail(EmailAddress);
+  	  
+  	}
+  	catch (Exception e)  {
+  	System.out.println("Exception: " + e);
+  	}	 
+      return result;  
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ActionSelect;
@@ -481,12 +580,16 @@ public class PartsClient extends javax.swing.JFrame {
     private javax.swing.JPanel DisplayWindow;
     private static javax.swing.JTextField ItemName;
     private static javax.swing.JTextField ItemPrice;
-    private javax.swing.JPanel NotificationArea;
+    private javax.swing.JButton Mail;
+    private static javax.swing.JPanel MailArea;
     private javax.swing.JButton SubmitUpdate;
     private javax.swing.JTextArea display;
+    private static javax.swing.JTextField emailAddress;
     private static javax.swing.JPanel formBg;
+    private javax.swing.JButton generateReport;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -494,5 +597,6 @@ public class PartsClient extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel priceLabel;
+    private javax.swing.JButton sendMail;
     // End of variables declaration//GEN-END:variables
 }

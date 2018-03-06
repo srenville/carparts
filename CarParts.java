@@ -5,6 +5,8 @@
  */
 package carparts;
 
+import java.io.FileNotFoundException;
+
 /**
  *
  * @author Toozigba
@@ -14,8 +16,13 @@ public class CarParts {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
+        
+        CarPartsServer server=new CarPartsServer();
+        PartsClient client=new PartsClient();
+        server.main(null);
+        client.main(null);
     }
     
 }
