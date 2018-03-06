@@ -292,6 +292,14 @@ public class PartsClient extends javax.swing.JFrame {
        PartsClient.formBg.setVisible(true);
        priceLabel.setVisible(false);
        ItemPrice.setVisible(false); 
+       flag=3;
+    }
+    
+     if(select.equals("Generate Profit Report")){
+        PartsClient.formBg.setVisible(false);
+        display.setText("");
+        display.setText(generateReport()); 
+        
     }
      
     
@@ -317,6 +325,10 @@ public class PartsClient extends javax.swing.JFrame {
     if(flag==2){
        
         display.setText(changePrice(ItemName.getText().trim(),Integer.valueOf(ItemPrice.getText().trim())));
+    }
+    
+    if(flag==3){
+        display.setText(deletePart(ItemName.getText().trim()));
     }
     
    // viewAllPartsPrices();
@@ -423,6 +435,38 @@ public class PartsClient extends javax.swing.JFrame {
   	  changePrice changePrice = (changePrice) Naming.lookup(addServerURL);
   	  
   	   result =changePrice.changePrice(ItemName, NewPrice);
+  	  
+  	}
+  	catch (Exception e)  {
+  	System.out.println("Exception: " + e);
+  	}	 
+      return result;  
+    }
+     
+      public String deletePart(String ItemName){
+        String result="";
+        
+        try {
+  	  String addServerURL = "rmi://" + "127.0.0.1" + "/CarPartsServer";
+  	  deletePart deletePart = (deletePart) Naming.lookup(addServerURL);
+  	  
+  	   result =deletePart.deletePart(ItemName);
+  	  
+  	}
+  	catch (Exception e)  {
+  	System.out.println("Exception: " + e);
+  	}	 
+      return result;  
+    }
+      
+        public String generateReport(){
+        String result="";
+        
+        try {
+  	  String addServerURL = "rmi://" + "127.0.0.1" + "/CarPartsServer";
+  	  generateReport generateReport = (generateReport) Naming.lookup(addServerURL);
+  	  
+  	   result =generateReport.generateReport();
   	  
   	}
   	catch (Exception e)  {

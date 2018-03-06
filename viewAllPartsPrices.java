@@ -18,7 +18,7 @@ import java.util.List;
 
     
     
-    public class viewAllPartsPrices extends UnicastRemoteObject implements viewAllPartsPricesInterface,getPriceInterface,changePrice{
+    public class viewAllPartsPrices extends UnicastRemoteObject implements viewAllPartsPricesInterface,getPriceInterface,changePrice,deletePart,generateReport{
     
     
       public viewAllPartsPrices() throws RemoteException {
@@ -91,6 +91,44 @@ import java.util.List;
        
        return "Done";
    }  
+       
+       
+      @Override
+       public String deletePart(String ItemName)throws RemoteException{
+       int i=0;
+       while(i<database.size()){
+           if(database.get(i).getPartName().equals(ItemName)){
+                                
+                database.remove(database.get(i));
+           }
+           
+           i++;
+       }
+       
+       return "Deleted";
+   }  
+       
+       
+       public String generateReport ()throws RemoteException{
+       List <profitReportItem> report= new ArrayList<>();
+      
+       
+       int i=0;
+       while(i<database.size()){
+           profitReportItem profitReportItem=new profitReportItem(database.get(i).getPartName(),database.get(i).getCostPrice(),database.get(i).getSellPrice(),database.get(i).getQtySold(),database.get(i).getQtySold()*database.get(i).getSellPrice());
+           
+           report.add(profitReportItem);
+           i++;
+       }
+       String result="";
+       i=0;
+       while(i<report.size()){
+           result=result.concat(i+1+":"+report.get(i).getItemName()+"---$"+ report.get(i).getCostPrice()+"---$"+report.get(i).getSellingPrice()+"---"+report.get(i).getQtySold()+ "---$"+report.get(i).getProfit()+"\n");
+       i++;
+       }
+       report.clear();
+       return result;
+   }
        
        
 } 
