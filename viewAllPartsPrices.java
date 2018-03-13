@@ -78,38 +78,53 @@ import javax.activation.*;
            result=result.concat(i+1+":"+PartPricesResultSet.getPartPricesResults().get(i).getPartName()+"---------------"+" "+"$"+ PartPricesResultSet.getPartPricesResults().get(i).getSellPrice()+"\n");
        i++;
        }
+       if(PartPricesResultSet.getPartPricesResults().size()==0){
+           result = "Item not found.";
+       }
+       
        PartPricesResultSet.clear();
        return result;
    }
       @Override
        public String changePrice(String ItemName, int NewPrice)throws RemoteException{
        int i=0;
+       String result="";
        while(i<database.size()){
            if(database.get(i).getPartName().equals(ItemName)){
                                 
                 database.get(i).setSellPrice(NewPrice);
+                result="done";
            }
            
            i++;
        }
+       if(result.length()==0){
+           result="Part not found";
+       }
        
-       return "Done";
+       return result;
    }  
        
        
       @Override
        public String deletePart(String ItemName)throws RemoteException{
        int i=0;
+       String result="";
        while(i<database.size()){
            if(database.get(i).getPartName().equals(ItemName)){
                                 
                 database.remove(database.get(i));
+                 result="done";
            }
+           
            
            i++;
        }
-       
-       return "Deleted";
+       if(result.length()==0){
+           result="Part not found";
+       }
+             
+       return result;
    }  
        
        
@@ -131,6 +146,9 @@ import javax.activation.*;
        i++;
        }
        report.clear();
+       if(result.length()==0){
+           result="Error generating report";
+       }
        return result;
    }
        

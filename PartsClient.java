@@ -5,8 +5,17 @@
  */
 package carparts;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import static java.lang.Integer.parseInt;
 import java.rmi.Naming;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 
 /**
@@ -44,9 +53,9 @@ public class PartsClient extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
-        ConnectToServer = new javax.swing.JToggleButton();
         Mail = new javax.swing.JButton();
         generateReport = new javax.swing.JButton();
+        timerIcon = new javax.swing.JLabel();
         DisplayWindow = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         display = new javax.swing.JTextArea();
@@ -176,15 +185,7 @@ public class PartsClient extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(221, 240, 194));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        ConnectToServer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carparts/Images/icons8-ethernet-on-48.png"))); // NOI18N
-        ConnectToServer.setBorder(null);
-        ConnectToServer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConnectToServerActionPerformed(evt);
-            }
-        });
-
-        Mail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carparts/Images/icons8-send-48.png"))); // NOI18N
+        Mail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carparts/Images/icons8-paper-plane-48.png"))); // NOI18N
         Mail.setBorder(null);
         Mail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,30 +193,32 @@ public class PartsClient extends javax.swing.JFrame {
             }
         });
 
-        generateReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carparts/Images/icons8-accounting-48.png"))); // NOI18N
+        generateReport.setBackground(new java.awt.Color(255, 255, 255));
+        generateReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carparts/Images/icons8-us-dollar-48.png"))); // NOI18N
         generateReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generateReportActionPerformed(evt);
             }
         });
 
+        timerIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carparts/Images/icons8-time-48.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Mail, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(timerIcon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Mail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(generateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(ConnectToServer))
+                .addComponent(generateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(generateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(ConnectToServer, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(Mail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(generateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(timerIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 45, Short.MAX_VALUE)
         );
 
         DisplayWindow.setBackground(new java.awt.Color(255, 255, 255));
@@ -236,9 +239,9 @@ public class PartsClient extends javax.swing.JFrame {
         );
         DisplayWindowLayout.setVerticalGroup(
             DisplayWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DisplayWindowLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DisplayWindowLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -308,7 +311,7 @@ public class PartsClient extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(DisplayWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MailArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -324,7 +327,22 @@ public class PartsClient extends javax.swing.JFrame {
         PartsClient.MailArea.setVisible(false);
         PartsClient.formBg.setVisible(false);
         display.setText("");
-        display.setText(viewAllPartsPrices()); 
+        try {
+            long start = System.currentTimeMillis();
+            String result=viewAllPartsPrices();
+            display.setText(result);
+           
+            long time = System.currentTimeMillis() - start;
+        
+            String timeTaken= Float.toString((time));
+            timerIcon.setText(timeTaken+" mil");
+             LogWriter("View all prices",result,timeTaken);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PartsClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(PartsClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     if(select.equals("Get a Price")){
         PartsClient.MailArea.setVisible(false);
@@ -357,8 +375,27 @@ public class PartsClient extends javax.swing.JFrame {
      if(select.equals("Generate Profit Report")){
          PartsClient.MailArea.setVisible(false);
         PartsClient.formBg.setVisible(false);
+         long start = System.currentTimeMillis();
+      
+        
         display.setText("");
-        display.setText(generateReport()); 
+        try {
+            String genReport=generateReport();
+            display.setText(genReport);
+            long time = System.currentTimeMillis() - start;
+        
+            String timeTaken= Float.toString((time));
+            timerIcon.setText(timeTaken+" mil");
+            LogWriter("Generate Profit Report",genReport,timeTaken); 
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PartsClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(PartsClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
         
     }
      
@@ -368,10 +405,6 @@ public class PartsClient extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ActionSelectActionPerformed
 
-    private void ConnectToServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectToServerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ConnectToServerActionPerformed
-
     private void SubmitUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitUpdateActionPerformed
        
 //        int x=(int) Double.valueOf(ItemName.getText().trim()).doubleValue();
@@ -380,17 +413,55 @@ public class PartsClient extends javax.swing.JFrame {
 PartsClient.MailArea.setVisible(false);
     
     if(flag==1){
+        long start = System.currentTimeMillis();
+    try {
+        String getPrice=getPrice(ItemName.getText().trim());
+        display.setText(getPrice);
+         long time = System.currentTimeMillis() - start;
+        String timeTaken= Float.toString((time));
+        timerIcon.setText(timeTaken+" mil");
+        LogWriter("Get price of item",getPrice,timeTaken); 
+    } catch (FileNotFoundException ex) {
+        Logger.getLogger(PartsClient.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (UnsupportedEncodingException ex) {
+        Logger.getLogger(PartsClient.class.getName()).log(Level.SEVERE, null, ex);
+    }
        
-        display.setText(getPrice(ItemName.getText().trim()));
     }
     
     if(flag==2){
-       
-        display.setText(changePrice(ItemName.getText().trim(),Integer.valueOf(ItemPrice.getText().trim())));
+        long start = System.currentTimeMillis();
+    try {
+        String changePrice=changePrice(ItemName.getText().trim(),Integer.valueOf(ItemPrice.getText().trim()));
+        display.setText(changePrice);
+        long time = System.currentTimeMillis() - start;
+        String timeTaken= Float.toString((time));
+        timerIcon.setText(timeTaken+" mil");
+        LogWriter("Change price of item",changePrice,timeTaken);  
+    } catch (FileNotFoundException ex) {
+        Logger.getLogger(PartsClient.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (UnsupportedEncodingException ex) {
+        Logger.getLogger(PartsClient.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        
+        
     }
     
     if(flag==3){
-        display.setText(deletePart(ItemName.getText().trim()));
+        long start = System.currentTimeMillis();
+    try {
+        String delPart=deletePart(ItemName.getText().trim());
+        display.setText(delPart);
+        long time = System.currentTimeMillis() - start;
+        String timeTaken= Float.toString((time));
+        timerIcon.setText(timeTaken+" mil");
+        LogWriter("Delete part",delPart,timeTaken); 
+    } catch (FileNotFoundException ex) {
+        Logger.getLogger(PartsClient.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (UnsupportedEncodingException ex) {
+        Logger.getLogger(PartsClient.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        
     }
     
    // viewAllPartsPrices();
@@ -403,8 +474,25 @@ PartsClient.MailArea.setVisible(false);
 
     private void generateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateReportActionPerformed
         PartsClient.MailArea.setVisible(false);
+        long start = System.currentTimeMillis();
+      
+        
         display.setText("");
-        display.setText(generateReport());
+        try { 
+            display.setText(generateReport());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PartsClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(PartsClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        long time = System.currentTimeMillis() - start;
+        
+        String timeTaken= Float.toString((time));
+        timerIcon.setText(timeTaken+" mil");
+                
+
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_generateReportActionPerformed
 
@@ -412,7 +500,12 @@ PartsClient.MailArea.setVisible(false);
         // TODO add your handling code here:
         
         display.setText("");
+        long start = System.currentTimeMillis();
         display.setText(sendMail(emailAddress.getText().trim())); 
+        long time = System.currentTimeMillis() - start;
+        String timeTaken= Float.toString((time));
+        timerIcon.setText(timeTaken+" mil");
+        
     }//GEN-LAST:event_sendMailActionPerformed
 
     /**
@@ -477,7 +570,7 @@ PartsClient.MailArea.setVisible(false);
 
     }
     
-    public String viewAllPartsPrices(){
+    public String viewAllPartsPrices() throws FileNotFoundException, UnsupportedEncodingException{
         String result="";
         
         try {
@@ -485,15 +578,17 @@ PartsClient.MailArea.setVisible(false);
   	  viewAllPartsPricesInterface viewAllPartsPricesInterface = (viewAllPartsPricesInterface) Naming.lookup(addServerURL);
   	  
   	   result =viewAllPartsPricesInterface.viewAllPartsPrices();
+           
   	  
   	}
   	catch (Exception e)  {
   	System.out.println("Exception: " + e);
-  	}	 
+  	}
+        
       return result;  
     }
     
-     public String getPrice(String ItemName){
+     public String getPrice(String ItemName) throws FileNotFoundException, UnsupportedEncodingException{
         String result="";
         
         try {
@@ -501,15 +596,16 @@ PartsClient.MailArea.setVisible(false);
   	  getPriceInterface getPriceInterface = (getPriceInterface) Naming.lookup(addServerURL);
   	  
   	   result =getPriceInterface.getPrice(ItemName);
-  	  
+          
   	}
   	catch (Exception e)  {
   	System.out.println("Exception: " + e);
-  	}	 
+  	}
+        
       return result;  
     }
      
-     public String changePrice(String ItemName, int NewPrice){
+     public String changePrice(String ItemName, int NewPrice) throws FileNotFoundException, UnsupportedEncodingException{
         String result="";
         
         try {
@@ -517,15 +613,16 @@ PartsClient.MailArea.setVisible(false);
   	  changePrice changePrice = (changePrice) Naming.lookup(addServerURL);
   	  
   	   result =changePrice.changePrice(ItemName, NewPrice);
-  	  
+           
   	}
   	catch (Exception e)  {
   	System.out.println("Exception: " + e);
-  	}	 
+  	}
+         
       return result;  
     }
      
-      public String deletePart(String ItemName){
+      public String deletePart(String ItemName) throws FileNotFoundException, UnsupportedEncodingException{
         String result="";
         
         try {
@@ -533,15 +630,16 @@ PartsClient.MailArea.setVisible(false);
   	  deletePart deletePart = (deletePart) Naming.lookup(addServerURL);
   	  
   	   result =deletePart.deletePart(ItemName);
-  	  
+           
   	}
   	catch (Exception e)  {
   	System.out.println("Exception: " + e);
-  	}	 
+  	}
+        
       return result;  
     }
       
-        public String generateReport(){
+        public String generateReport() throws FileNotFoundException, UnsupportedEncodingException{
         String result="";
         
         try {
@@ -553,30 +651,44 @@ PartsClient.MailArea.setVisible(false);
   	}
   	catch (Exception e)  {
   	System.out.println("Exception: " + e);
-  	}	 
+  	}
+       
       return result;  
     }
         
         
          public String sendMail(String EmailAddress){
         String result="";
+        String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        Boolean b = EmailAddress.matches(EMAIL_REGEX);
+
+        if(b){
+                        try {
+                          String addServerURL = "rmi://" + "127.0.0.1" + "/CarPartsServer";
+                          sendMail sendMail = (sendMail) Naming.lookup(addServerURL);
+
+                           result =sendMail.sendMail(EmailAddress);
+
+                        }
+                        catch (Exception e)  {
+                        System.out.println("Exception: " + e);
+                        }
+                        }
         
-        try {
-  	  String addServerURL = "rmi://" + "127.0.0.1" + "/CarPartsServer";
-  	  sendMail sendMail = (sendMail) Naming.lookup(addServerURL);
-  	  
-  	   result =sendMail.sendMail(EmailAddress);
-  	  
-  	}
-  	catch (Exception e)  {
-  	System.out.println("Exception: " + e);
-  	}	 
+        else result="Enter a valid email address";
       return result;  
     }
+         public void LogWriter(String action,String entry,String time) throws FileNotFoundException, UnsupportedEncodingException{
+             PrintWriter writer = new PrintWriter(new FileOutputStream(new File("Output.out"),true));
+             DateTimeFormatter dtf=DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+             LocalDateTime now = LocalDateTime.now();
+             writer.println(dtf.format(now)+"\n"+"Action: "+action+"\n"+"Event "+entry+"\n"+"Performance: "+time+"\n\n");
+             
+             writer.close();
+         }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ActionSelect;
-    private javax.swing.JToggleButton ConnectToServer;
     private javax.swing.JPanel DisplayWindow;
     private static javax.swing.JTextField ItemName;
     private static javax.swing.JTextField ItemPrice;
@@ -598,5 +710,6 @@ PartsClient.MailArea.setVisible(false);
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel priceLabel;
     private javax.swing.JButton sendMail;
+    private static javax.swing.JLabel timerIcon;
     // End of variables declaration//GEN-END:variables
 }
